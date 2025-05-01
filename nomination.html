@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Nominate a young achiever at the University of Benin for the TOYP UNIBEN Award. Celebrate outstanding individuals making a difference."
+    />
+    <title>Nominate - TOYP UNIBEN</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="nomination.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img src="images/toyp-logo.png" alt="TOYP UNIBEN Logo" />
+      </div>
+      <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="nomination.html">Nominate</a></li>
+          <li><a href="vote.html">Vote</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="nominate fade-in">
+      <h1>Nominate a Young Achiever for TOYP UNIBEN</h1>
+      <p>
+        The TOYP UNIBEN awards are all about recognizing exceptional young
+        individuals at the University of Benin. If you know someone who
+        exemplifies leadership, innovation, or social impact, this is your
+        chance to nominate them for this prestigious recognition.
+      </p>
+
+      <div class="nomination-form">
+        <h2>Nomination Form</h2>
+        <p>Please fill in the form below to nominate a candidate:</p>
+
+        <form action="https://formsubmit.co/toypuniben@gmail.com" method="POST">
+          <!-- <form id="nomination-form" method="POST"> -->
+          <label for="nominee-name">Nominee Name:</label>
+          <input type="text" id="nominee-name" name="nominee-name" required />
+
+          <label for="nominee-email">Nominee Email:</label>
+          <input
+            type="email"
+            id="nominee-email"
+            name="nominee-email"
+            required
+          />
+
+          <label for="category">Category:</label>
+          <select id="category" name="category" required>
+            <option value="Business and Entrepreneurship Excellence">
+              Business and Entrepreneurship Excellence
+            </option>
+            <option value=" Political & Governance Impact">
+              Political & Governance Impact
+            </option>
+            <option value="Academic and Intellectual Achievements">
+              Academic and Intellectual Achievements
+            </option>
+            <option value="Art & Creative Innovation">
+              Art & Creative Innovation
+            </option>
+            <option value="Sports Achievement">Sports Achievement</option>
+            <option value="Voluntary Leadership and Humanitarian services">
+              Voluntary Leadership and Humanitarian services
+            </option>
+            <option value=" Personal Development and Self improvement">
+              Personal Development and Self improvement
+            </option>
+            <option value="Health & Medical Impact">
+              Health & Medical Impact
+            </option>
+            <option value=" Social & Community Influence">
+              Social & Community Influence
+            </option>
+            <option value="Digital Media Presence">
+              Digital Media Presence
+            </option>
+          </select>
+
+          <label for="social-media-handle">Social Media Handle</label>
+          <input
+            type="text"
+            id="social-media-handle"
+            name="social_media_handle"
+            placeholder="@yourhandle"
+            required
+          />
+
+          <label for="reason">Reason for Nomination:</label>
+          <textarea id="reason" name="reason" rows="4" required></textarea>
+
+          <button type="submit" id="submit-button">Submit Nomination</button>
+          <!-- </form> -->
+        </form>
+
+        <div id="confirmation-message" style="display: none">
+          <h3>Thank you for your nomination!</h3>
+          <p>
+            Your submission has been successfully received. The nominee will be
+            contacted soon.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 TOYP UNIBEN. All rights reserved.</p>
+    </footer>
+
+    <script src="main.js"></script>
+  </body>
+</html>
