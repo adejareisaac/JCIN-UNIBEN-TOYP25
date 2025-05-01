@@ -313,12 +313,19 @@ nav ul li a:hover::after {
 }
 
 .testimonial img {
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
+
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid var(--jci-yellow);
   margin: 0 auto 1rem;
+  align-items: center;
+  justify-content: center;
+  /* width: 100%; */
+  /* height: auto; */
+  object-fit: cover;
+  object-position: top;
 }
 
 .testimonial h4 {
