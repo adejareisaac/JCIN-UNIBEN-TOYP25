@@ -12,6 +12,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="lightbox.css" />
   </head>
   <body>
     <!-- Header Section -->
@@ -111,31 +112,75 @@
     <section class="gallery">
       <h2>Past TOYP Moments & Event Flyers</h2>
       <div class="gallery-container">
-        <img
-          src="images\Saved Pictures\IMG-20250413-WA0046.jpg"
-          alt="Event 1"
-        />
-        <img
-          src="images\Saved Pictures\IMG-20250413-WA0047.jpg"
-          alt="Event 2"
-        />
-        <img
-          src="images\Saved Pictures\IMG-20250413-WA0052.jpg"
-          alt="Flyer 1"
-        />
-        <img
-          src="images\Saved Pictures\IMG-20250413-WA0048.jpg"
-          alt="Flyer 2"
-        />
-        <img
-          src="images\Saved Pictures\IMG-20250413-WA0056.jpg"
-          alt="Event 3"
-        />
-        <img src="images\2L6A8021.jpg" alt="Event 4" />
-        <img src="images\pic2.jpg" alt="Event 5" />
-        <img src="images\pic.jpg" alt="Event 6" />
-        <img src="images\pic5.jpg" alt="Event 6" />
-        <img src="images\pic3.jpg" alt="Event 6" />
+        <a
+          href="images\Saved Pictures\IMG-20250413-WA0046.jpg"
+          data-lightbox="models"
+          data-title="Caption1"
+        >
+          <img
+            src="images\Saved Pictures\IMG-20250413-WA0046.jpg"
+            alt="Event 1"
+          />
+        </a>
+        <a
+          href="images\Saved Pictures\IMG-20250413-WA0047.jpg"
+          data-lightbox="models"
+          data-title="Caption2"
+        >
+          <img
+            src="images\Saved Pictures\IMG-20250413-WA0047.jpg"
+            alt="Event 2"
+          />
+        </a>
+        <a
+          href="images\Saved Pictures\IMG-20250413-WA0052.jpg"
+          data-lightbox="models"
+          data-title="Caption3"
+        >
+          <img
+            src="images\Saved Pictures\IMG-20250413-WA0052.jpg"
+            alt="Flyer 1"
+          />
+        </a>
+        <a
+          href="images\Saved Pictures\IMG-20250413-WA0048.jpg"
+          data-lightbox="models"
+          data-title="Caption4"
+        >
+          <img
+            src="images\Saved Pictures\IMG-20250413-WA0048.jpg"
+            alt="Flyer 2"
+          />
+        </a>
+        <a
+          href="images\Saved Pictures\IMG-20250413-WA0056.jpg"
+          data-lightbox="models"
+          data-title="Caption5"
+        >
+          <img
+            src="images\Saved Pictures\IMG-20250413-WA0056.jpg"
+            alt="Event 3"
+          />
+        </a>
+        <a
+          href="images\2L6A8021.jpg"
+          data-lightbox="models"
+          data-title="Caption6"
+        >
+          <img src="images\2L6A8021.jpg" alt="Event 4" />
+        </a>
+        <a href="images\pic2.jpg" data-lightbox="models" data-title="Caption7">
+          <img src="images\pic2.jpg" alt="Event 5" />
+        </a>
+        <a href="images\pic.jpg" data-lightbox="models" data-title="Caption8">
+          <img src="images\pic.jpg" alt="Event 6" />
+        </a>
+        <a href="images\pic5.jpg" data-lightbox="models" data-title="Caption9">
+          <img src="images\pic5.jpg" alt="Event 6" />
+        </a>
+        <a href="images\pic3.jpg" data-lightbox="models" data-title="Caption10">
+          <img src="images\pic3.jpg" alt="Event 6" />
+        </a>
       </div>
     </section>
 
@@ -183,5 +228,6 @@
     </footer>
 
     <script src="main.js"></script>
+    <script src="lightbox-plus-jquery.js"></script>
   </body>
 </html>
