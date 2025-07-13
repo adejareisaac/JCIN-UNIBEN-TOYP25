@@ -41,7 +41,7 @@
         <h2>Nomination Form</h2>
         <p>Please fill in the form below to nominate a candidate:</p>
 
-        <form action="https://formsubmit.co/toypuniben@gmail.com" method="POST">
+        <form id="nomination-form" action="https://formsubmit.co/toypuniben@gmail.com" method="POST">
           <!-- <form id="nomination-form" method="POST"> -->
           <label for="nominee-name">Nominee Name:</label>
           <input type="text" id="nominee-name" name="nominee-name" required />
@@ -117,5 +117,22 @@
     </footer>
 
     <script src="main.js"></script>
+    
+    <script>
+      const scriptURL = "https://script.google.com/macros/s/AKfycbzQWvTINdbVmtrnuM5iaPjFLlxmJeUAgnNHtJFgYDS33jz3wCteD-gufHwuhmWEtIsW/exec";
+      const form = document.getElementById("nomination-form");
+    
+      form.addEventListener("submit", () => {
+        fetch(scriptURL, {
+          method: "POST",
+          body: new FormData(form)
+        })
+        .then(() => console.log("✅ Thank you for a successful Nomination"))
+        .catch(error => console.error("❌ Error saving to database: Please try again.", error));
+      });
+    </script>
+    
+    
+    
   </body>
 </html>
