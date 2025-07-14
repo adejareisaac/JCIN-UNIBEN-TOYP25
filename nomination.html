@@ -36,12 +36,11 @@
         leadership innovation or social impact for this prestigious recognition.
       </p>
 
-      <div class="nomination-form">
+      <div class="nomination-forms">
         <h2>Nomination Form</h2>
         <p>Please fill in the form below to nominate a candidate:</p>
 
-        <form action="https://script.google.com/macros/s/AKfycbzpoHgmvBZt6Eve5E8Mu7IkL0BlHRrBJzPYs2j_wsLUqazlgVzQ_xO4DB9OaEI9WC8/exec" method="POST" target="_self">
-          <!-- <form id="nomination-form" method="POST"> -->
+        <form id="nomination-form">
           <label for="nominee-name">Name of Nominee:</label>
           <input type="text" id="nominee-name" name="nominee-name" required />
 
@@ -171,16 +170,8 @@
           <label for="reason">Reason for Nomination:</label>
           <textarea id="reason" name="reason" rows="4" required></textarea>
 
-          <!-- <input
-            type="hidden"
-            name="_next"
-            value="https://jcin-uniben-toyp-25.vercel.app/thankuu.html"
-          />
-          <input type="hidden" name="_captcha" value="false" /> -->
-
           <button type="submit" id="submit-button">Submit Nomination</button>
         </form>
-
         <!-- <div
           id="confirmation-message"
           style="
@@ -195,10 +186,91 @@
             Your submission has been successfully received. The nominee will be
             contacted soon.
           </p> -->
-        </div>
       </div>
     </section>
-    
+    <script>
+      const form = document.getElementById("nomination-form"); // Make sure your form has id="nomination-form"
+      const submitButton = document.getElementById("submit-button");
+
+      // IMPORTANT: Replace this with your actual Google Apps Script Web App URL
+      const APP_SCRIPT_URL =
+        "https://script.google.com/macros/s/AKfycbyI5M5DSfTK_cS8sAOB6l1T1J4VMF2dicJkJYmLKMAoLrCeZ7lbMM6xqI3U822DInCK/exec";
+
+      // Redirect URLs
+      const SUCCESS_PAGE_URL =
+        "https://jcin-uniben-toyp-25.vercel.app/thankuu.html";
+      const DUPLICATE_PAGE_URL =
+        "https://jcin-uniben-toyp-25.vercel.app/sub.html";
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault(); // Prevent default form submission
+
+        submitButton.disabled = true; // Disable button to prevent multiple submissions
+        submitButton.textContent = "Submitting..."; // Change button text
+
+        // Collect form data
+        const formData = new FormData(form);
+        const formDataObject = {};
+        formData.forEach((value, key) => {
+          formDataObject[key] = value;
+        });
+
+        try {
+          const response = await fetch(APP_SCRIPT_URL, {
+            method: "POST",
+            // Important for CORS: use 'cors' mode and ensure Apps Script sends proper CORS headers
+            mode: "cors",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded", // This matches how Apps Script expects e.parameter
+            },
+            body: new URLSearchParams(formDataObject).toString(), // Convert object to URL-encoded string
+          });
+
+          // Check if the network request itself was successful (e.g., no 404, 500 status from Apps Script host)
+          if (!response.ok) {
+            const errorText = await response.text();
+            console.error(
+              "Apps Script responded with non-OK status:",
+              response.status,
+              errorText
+            );
+            alert(
+              "Server error (" +
+                response.status +
+                "). Please try again or contact support."
+            );
+            return; // Exit if response not OK
+          }
+
+          // Parse the JSON response from Apps Script
+          const data = await response.json(); // Use .json() directly as Apps Script sets Content-Type: application/json
+
+          console.log("Parsed response from Apps Script:", data);
+
+          if (data.status === "success") {
+            window.location.href = SUCCESS_PAGE_URL;
+          } else if (data.status === "duplicate") {
+            window.location.href = DUPLICATE_PAGE_URL;
+          } else {
+            // This handles 'error' status from Apps Script
+            alert(
+              "An unexpected error occurred: " +
+                (data.message || "Unknown response from server.")
+            );
+            console.error("Unexpected status from Apps Script:", data);
+          }
+        } catch (error) {
+          console.error("Submission error:", error);
+          alert(
+            "A network or parsing error occurred during submission. Please try again. If the issue persists, contact support."
+          );
+        } finally {
+          submitButton.disabled = false;
+          submitButton.textContent = "Submit Nomination";
+        }
+      });
+    </script>
+
     <footer>
       <div class="footer-content">
         <div class="social-media">

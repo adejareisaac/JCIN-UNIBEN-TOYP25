@@ -96,13 +96,13 @@ nav ul li a:hover::after {
   color: #555;
 }
 
-.nomination-form h2 {
+.nomination-forms h2 {
   font-size: 1.5rem;
   color: #002b55;
   margin-bottom: 0.5rem;
 }
 
-.nomination-form p {
+.nomination-forms p {
   margin-bottom: 1rem;
   color: #666;
 }
