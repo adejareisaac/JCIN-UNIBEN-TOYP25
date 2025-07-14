@@ -349,6 +349,13 @@ nav ul li a:hover::after {
   color: #666;
   margin-top: 1rem;
 }
+.divider-line {
+  border: none;
+  border-top: 2px solid var(--jci-yellow); /* or any color you want */
+  width: 80%;
+  margin: 3rem auto;
+}
+
 /* Gallery Section */
 .gallery {
   padding: var(--section-padding);
