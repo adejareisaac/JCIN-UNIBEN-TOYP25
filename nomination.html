@@ -40,9 +40,9 @@
         <h2>Nomination Form</h2>
         <p>Please fill in the form below to nominate a candidate:</p>
 
-        <form action="https://formsubmit.co/toypuniben@gmail.com" method="POST">
+        <form action="https://script.google.com/macros/s/AKfycbzpoHgmvBZt6Eve5E8Mu7IkL0BlHRrBJzPYs2j_wsLUqazlgVzQ_xO4DB9OaEI9WC8/exec" method="POST" target="_self">
           <!-- <form id="nomination-form" method="POST"> -->
-          <label for="nominee-name">Nominee Name:</label>
+          <label for="nominee-name">Name of Nominee:</label>
           <input type="text" id="nominee-name" name="nominee-name" required />
 
           <label for="nominee-email">Email of Nominee:</label>
@@ -171,12 +171,12 @@
           <label for="reason">Reason for Nomination:</label>
           <textarea id="reason" name="reason" rows="4" required></textarea>
 
-          <input
+          <!-- <input
             type="hidden"
             name="_next"
             value="https://jcin-uniben-toyp-25.vercel.app/thankuu.html"
           />
-          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_captcha" value="false" /> -->
 
           <button type="submit" id="submit-button">Submit Nomination</button>
         </form>
@@ -198,138 +198,7 @@
         </div>
       </div>
     </section>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const nominationForm = document.getElementById("nomination-form-main");
-        const submitButton = document.getElementById("submit-button");
-        const statusMessage = document.getElementById("status-message");
-        const nominatorEmailInput = document.getElementById("nominator-email");
-
-        // Define a unique key prefix for local storage specific to this form/purpose
-        const NOMINATION_LOCAL_STORAGE_PREFIX =
-          "toyp_uniben_nomination_status_";
-
-        // Function to encode email for localStorage key (basic, not for security)
-        function encodeEmailForLS(email) {
-          return btoa(encodeURIComponent(email.toLowerCase().trim()));
-        }
-
-        // Function to check if a user with this email has already submitted
-        function hasUserSubmitted(encodedEmailKey) {
-          const itemStr = localStorage.getItem(
-            NOMINATION_LOCAL_STORAGE_PREFIX + encodedEmailKey
-          );
-          if (!itemStr) return false;
-
-          try {
-            const item = JSON.parse(itemStr);
-            const now = new Date().getTime();
-            // Check if item exists and is not expired
-            if (
-              item.value === "submitted" &&
-              item.expiry &&
-              item.expiry > now
-            ) {
-              return true;
-            } else {
-              // Remove expired item
-              localStorage.removeItem(
-                NOMINATION_LOCAL_STORAGE_PREFIX + encodedEmailKey
-              );
-              return false;
-            }
-          } catch (e) {
-            // Handle potential parsing errors if item is not valid JSON
-            localStorage.removeItem(
-              NOMINATION_LOCAL_STORAGE_PREFIX + encodedEmailKey
-            );
-            return false;
-          }
-        }
-
-        // Function to mark a user as having submitted
-        function markUserAsSubmitted(encodedEmailKey) {
-          // Set for 24 hours (86400000 milliseconds) as an example expiry
-          const now = new Date();
-          const item = {
-            value: "submitted",
-            expiry: now.getTime() + 24 * 60 * 60 * 1000, // 24 hours from now
-          };
-          localStorage.setItem(
-            NOMINATION_LOCAL_STORAGE_PREFIX + encodedEmailKey,
-            JSON.stringify(item)
-          );
-        }
-
-        // Add an event listener to the form's submit event
-        nominationForm.addEventListener("submit", function (event) {
-          const nominatorEmail = nominatorEmailInput.value;
-          const encodedEmailKey = encodeEmailForLS(nominatorEmail);
-
-          // Check if this nominator has already submitted
-          if (hasUserSubmitted(encodedEmailKey)) {
-            event.preventDefault(); // STOP the form from submitting
-            statusMessage.style.display = "block";
-            statusMessage.style.color = "red"; // Set color for error
-            statusMessage.textContent =
-              "You have already submitted a nomination using this email address. Thank you!";
-            submitButton.disabled = false; // Re-enable button
-            return; // Exit the function
-          }
-
-          // If this is a new submission, proceed and mark user as submitted
-          markUserAsSubmitted(encodedEmailKey);
-
-          // Give immediate visual feedback before redirect
-          submitButton.disabled = true;
-          submitButton.textContent = "Submitting...";
-          statusMessage.style.display = "block";
-          statusMessage.style.color = "darkgreen"; // Set color for submitting status
-          statusMessage.textContent =
-            "Submitting your nomination... Please wait.";
-
-          // Since formsubmit.co is used with _next, the browser will redirect
-          // automatically after formsubmit.co processes the submission.
-        });
-
-        // Initial check on page load: If there's a stored email from a previous session
-        // and that email indicates a prior submission, hide the form.
-        const lastNominatorEmailRaw = localStorage.getItem(
-          "last_nominator_email_raw"
-        );
-        if (lastNominatorEmailRaw) {
-          const encodedKeyFromLastSession = encodeEmailForLS(
-            lastNominatorEmailRaw
-          );
-          if (hasUserSubmitted(encodedKeyFromLastSession)) {
-            statusMessage.style.display = "block";
-            statusMessage.style.color = "blue"; // Informational color
-            statusMessage.textContent =
-              "You have already submitted a nomination from this browser. Thank you!";
-            nominationForm.style.display = "none"; // Hide the form
-          }
-        }
-
-        // Listen for changes on the nominator email input field
-        // This allows re-showing the form if they clear the email or enter a new one
-        nominatorEmailInput.addEventListener("input", () => {
-          statusMessage.style.display = "none"; // Clear any status message
-          nominationForm.style.display = "block"; // Ensure form is visible again
-          submitButton.disabled = false;
-          submitButton.textContent = "Submit Nomination";
-        });
-
-        // Store the raw nominator email in localStorage on input blur, for persistent state
-        nominatorEmailInput.addEventListener("blur", () => {
-          const email = nominatorEmailInput.value.toLowerCase().trim();
-          if (email) {
-            localStorage.setItem("last_nominator_email_raw", email);
-          } else {
-            localStorage.removeItem("last_nominator_email_raw"); // Remove if field is empty
-          }
-        });
-      });
-    </script>
+    
     <footer>
       <div class="footer-content">
         <div class="social-media">
