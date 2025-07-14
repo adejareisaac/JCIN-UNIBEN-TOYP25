@@ -1,4 +1,4 @@
-/* General Reset */
+@import url("style.css");
 * {
   margin: 0;
   padding: 0;
@@ -140,7 +140,7 @@ nav ul li a:hover::after {
 
 /* Footer */
 footer {
-  background-color: #003366;
+  background-color: var(--jci-blue);
   color: white;
   text-align: center;
   padding: 1rem;
