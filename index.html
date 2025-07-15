@@ -15,6 +15,13 @@
     <link rel="stylesheet" href="lightbox.css" />
   </head>
   <body>
+    <div id="creative-preloader">
+      <div class="loader-container">
+        <div class="creative-loader"></div>
+        <p class="loading-text">JCI UNIBEN TOYP</p>
+      </div>
+    </div>
+    <div class="container"></div>
     <!-- Header Section -->
     <header>
       <div class="logo">
@@ -200,6 +207,34 @@
         </a> -->
       </div>
     </section>
+    <script>
+      // This JavaScript will hide the preloader once the page is fully loaded
+      window.addEventListener("load", function () {
+        const preloader = document.getElementById("creative-preloader");
+        if (preloader) {
+          // First, fade out the loading text
+          const loadingText = document.querySelector(".loading-text");
+          if (loadingText) {
+            loadingText.style.opacity = "0";
+            loadingText.style.transform = "translateY(20px)"; // Optional slight movement
+            loadingText.style.transition =
+              "opacity 0.5s ease, transform 0.5s ease";
+          }
+
+          // Then, after a short delay, fade out the whole preloader
+          setTimeout(() => {
+            preloader.style.opacity = "0"; // Start fade out
+            preloader.addEventListener(
+              "transitionend",
+              function () {
+                preloader.style.display = "none"; // Hide completely after transition
+              },
+              { once: true }
+            ); // Ensure listener only fires once
+          }, 500); // Wait 500ms (0.5s) after text fades before preloader fades
+        }
+      });
+    </script>
 
     <!-- Footer -->
     <footer>
