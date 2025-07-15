@@ -106,14 +106,14 @@ nav ul li a:hover::after {
 }
 
 /* Footer */
-footer {
+/* footer {
   background-color: var(--jci-blue);
   color: white;
   text-align: center;
   padding: 1rem;
   font-size: 0.9rem;
   margin-top: 2rem;
-}
+} */
 
 /* Responsive Design */
 @media (max-width: 768px) {

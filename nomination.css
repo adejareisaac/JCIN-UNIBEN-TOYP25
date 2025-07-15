@@ -154,15 +154,15 @@ button:hover {
   border-radius: 6px;
 }
 
-footer {
+/* footer {
   background-color: var(--jci-blue);
   text-align: center;
   padding: 1rem;
-  font-size: 0.9rem;
-  /* color: #777; */
-  margin-top: 2rem;
+  font-size: 0.9rem; */
+/* color: #777; */
+/* margin-top: 2rem;
   border-top: 1px solid #eee;
-}
+} */
 
 /* Animations */
 @keyframes fadeInUp {
