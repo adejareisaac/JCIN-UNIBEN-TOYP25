@@ -101,49 +101,50 @@ p {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #003da5; /* Use a JCI brand color (e.g., blue) */
+  background-color: #fff; /* or your preferred background */
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   z-index: 9999;
-  transition: opacity 0.9s ease-out; /* Slower fade out for the whole screen */
-  flex-direction: column; /* To stack spinner and text */
 }
 
 .loader-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px; /* Space between spinner and text */
+  text-align: center;
 }
 
 .creative-loader {
-  border: 8px solid rgba(255, 255, 255, 0.3); /* Lighter border for spinner */
-  border-top: 8px solid #ffffff; /* White part of the spinner */
+  width: 40px;
+  height: 40px;
+  border: 4px solid #003da5; /* Customize as needed */
+  border-top: 4px solid transparent;
   border-radius: 50%;
-  width: 70px; /* Slightly larger spinner */
-  height: 70px;
-  animation: spin 1.3s linear infinite; /* Adjust speed if desired */
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
 }
 
-.loading-text {
-  color: #ffffff; /* White text */
-  font-family: "manrope", sans-serif; /* Choose a suitable font */
-  font-size: 1.8em;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  opacity: 1;
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-/* Keyframe animation for the spinner (ensure only one 'spin' animation is defined) */
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
+  to {
     transform: rotate(360deg);
+  }
+}
+
+.loader-container img {
+  width: 150px; /* Adjust as needed */
+  max-width: 80vw;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -160,12 +161,25 @@ header {
   align-items: center;
 }
 
-.logo img {
-  height: clamp(40px, 10vw, 60px);
+/* .logo img {
+  height: clamp(60px, 12vw, 100px);
   width: auto;
+} */
+
+/* Default: Mobile-first */
+.logo img {
+  height: 90px !important; /* VERY BIG on mobile */
+  width: auto !important;
+  max-width: none !important;
+  display: block !important;
+  object-fit: contain !important;
+  margin-left: 0 !important;
+  /* padding: 0 !important; */
+  padding-top: 10px;
 }
+
 nav {
-  margin: 20px;
+  margin: 10px;
 }
 
 nav ul {
@@ -560,6 +574,10 @@ footer > p {
     display: block;
     margin-right: 20px;
     z-index: 1001;
+  }
+
+  .logo img {
+    height: 65px !important;
   }
 
   nav {
