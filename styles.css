@@ -366,13 +366,24 @@ nav ul li a:hover::after {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  gap: 2rem;
+  justify-content: space-around;
   padding: var(--section-padding);
   background-color: #ffffff;
   max-width: 1200px;
   margin: 0 auto;
 }
-
+.president-message {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+.toypdirector-message {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
 .director-message .message-right,
 .director-message .message-left {
   flex: 1 1 400px;
