@@ -190,7 +190,16 @@ button:hover {
 }
 
 
-.nomination-form-container{}
+
+
+/* classlists for nomination for js */
+.show{
+  display: flex;
+}
+
+form .steps.show{
+  opacity: 1;
+}
 
 
 

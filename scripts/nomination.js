@@ -1,4 +1,4 @@
-import { removeAllSteps } from "./utils/utils.js";
+import { showCurrentStep } from "./utils/utils.js";
 
 // as page loads get these dom element and save in thier respective variables
 // for cacheing reasons
@@ -11,8 +11,6 @@ const nominationFormStep3HTML = document.querySelector(".nomination-form-step-3"
 // El stands for element , btn for button
 const nextBtnEl = document.getElementById('next-btn')
 const backBtnEl = document.getElementById('back-btn')
-
-
 
 
 
@@ -31,36 +29,27 @@ let totalNumberOfSteps = nominationFormStepsList.length - 1; //0, 1, 2 so it alw
 function moveToNextStep() {
   if (count < 0) {
     count = 0;
-    removeAllSteps(nominationFormStepsList);
-    nominationFormStepsList[count].style.display = "flex";
   } else if (count >= totalNumberOfSteps) {
-    removeAllSteps(nominationFormStepsList); 
     count = totalNumberOfSteps;
-    nominationFormStepsList[count].style.display = "flex";
   } else {
     count++;
-    removeAllSteps(nominationFormStepsList);
-    nominationFormStepsList[count].style.display = "flex";
   }
+  showCurrentStep(nominationFormStepsList, count) 
 }
 
 
 function moveToPrevStep() {
   if (count <= 0) {
     count = 0;
-    removeAllSteps(nominationFormStepsList);
-    nominationFormStepsList[count].style.display = "flex";
   } else if (count > totalNumberOfSteps) {
-    removeAllSteps(nominationFormStepsList);
     count = totalNumberOfSteps;
-    nominationFormStepsList[count].style.display = "flex";
   } else {
     count--;
-    removeAllSteps(nominationFormStepsList);
-    nominationFormStepsList[count].style.display = "flex";
   }
-
+  showCurrentStep(nominationFormStepsList, count) 
 }
+
+
 
 nextBtnEl.addEventListener('click', moveToNextStep);
 backBtnEl.addEventListener('click', moveToPrevStep);
