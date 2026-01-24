@@ -9,7 +9,7 @@
     />
     <title>Nominate - TOYP UNIBEN</title>
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="nomination.css" />
+    <link rel="stylesheet" href="/styles/nomination.css" />
   </head>
   <body>
     <header>
@@ -40,10 +40,26 @@
         <h2>Nomination Form</h2>
         <p>Please fill in the form below to nominate a candidate:</p>
 
-        <form action="https://formsubmit.co/toypuniben@gmail.com" method="POST">
+        <!-- started working local host had to remove form action link to avoid uncessary submits -->
+        <!-- https://formsubmit.co/toypuniben@gmail.com -->
+        
+        
+
+
+   
+
+           <form action="" id="nomination-form" method="POST">
           <!-- <form id="nomination-form" method="POST"> -->
+           
+            <!-- nomination form step 1 -->
+          <div class="step nomination-form-step-1">
           <label for="nominee-name">Nominee Name:</label>
-          <input type="text" id="nominee-name" name="nominee-name" required />
+          <input 
+            type="text" 
+            id="nominee-name" 
+            name="nominee-name" 
+            required
+             />
 
           <label for="nominee-email">Email of Nominee:</label>
           <input
@@ -69,6 +85,10 @@
             <option value="Female">Female</option>
           </select>
 
+          </div>
+           
+          <!-- nomination form step 2 -->
+          <div class="step nomination-form-step-2">
           <label for="whatsapp-contact">WhatsApp Contact of Nominee:</label>
           <input
             type="text"
@@ -78,7 +98,11 @@
           />
 
           <label for="other-contact">Other Contact of Nominee:</label>
-          <input type="text" id="other-contact" name="other_contact" />
+          <input 
+            type="text" 
+            id="other-contact" 
+            name="other_contact" 
+            />
 
           <label for="faculty">Faculty of Nominee:</label>
           <select id="faculty" name="faculty" required>
@@ -120,7 +144,10 @@
 
           <label for="department">Department of Nominee:</label>
           <input type="text" id="department" name="department" required />
-
+          </div>
+           
+          <!-- nomination from step 3 -->
+          <div class="step nomination-form-step-3">
           <label for="level">Level of Nominee:</label>
           <input type="text" id="level" name="level" required />
 
@@ -179,7 +206,16 @@
           <input type="hidden" name="_captcha" value="false" /> -->
 
           <button type="submit" id="submit-button">Submit Nomination</button>
-        </form>
+          </div>
+
+          <!-- nomination form navigation btn container-->
+          <div class="nomination-form-navigation-container">
+            <button type="button" id="back-btn">Back</button>
+            <button type="button" id="next-btn">Next</button>
+          </div>
+
+          </form>
+    
 
         <!-- <div
           id="confirmation-message"
@@ -373,5 +409,6 @@
     </footer>
 
     <script src="main.js"></script>
+    <script type="module" src="/scripts/nomination.js"></script>
   </body>
 </html>

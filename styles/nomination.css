@@ -107,10 +107,23 @@ nav ul li a:hover::after {
   color: #666;
 }
 
-form {
+
+
+form > .step{
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+form .nomination-form-step-2,
+form .nomination-form-step-3{
+  display: none;
+}
+
+form .nomination-form-navigation-container{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1em;
 }
 
 input,
@@ -175,6 +188,12 @@ button:hover {
     transform: translateY(0);
   }
 }
+
+
+.nomination-form-container{}
+
+
+
 
 /* Responsive */
 @media (max-width: 768px) {
