@@ -43,8 +43,10 @@ function moveToNextStep() {
   } else {
     if (count === 0) {
       let success = validateStep1Form();
-      console.log(success)
       success ? count++ : (count = 0);
+    }else if(count === 1){
+       let success = validateStep2Form();
+       success ? count++ : (count = 1);
     }
   }
   showCurrentStep(nominationFormStepsList, count);
@@ -137,6 +139,75 @@ let validateStep1Form = () => {
   return  error.length === 0 ? true: false;
 };
 
+let validateStep2Form = () => {
+  let isSuccess = false;
+  const error = [];
+
+  // Values
+  const whatsAppNoVal = document.getElementById('whatsapp-contact').value.trim();
+  const otherContactVal = document.getElementById('other-contact').value.trim();
+  const facultyVal = document.getElementById('faculty').value.trim();
+  const departmentVal = document.getElementById('department').value.trim();
+
+  // Error elements
+  const whatsAppErrorEl = document.getElementById('whatsapp-error');
+  const otherContactErrorEl = document.getElementById('other-contact-error');
+  const facultyErrorEl = document.getElementById('faculty-error');
+  const departmentErrorEl = document.getElementById('department-error');
+
+  // WhatsApp validation
+  const { msg: whatsappMsg, status: whatsappStatus } = validatePhoneNumberInputs(whatsAppNoVal);
+  if (!whatsappStatus) {
+    displayErrorMsg(whatsAppErrorEl, whatsappMsg, isSuccess, false);
+    error.push('whatsapp error');
+  } else {
+    displayErrorMsg(whatsAppErrorEl, '', isSuccess, true);
+    isSuccess = true;
+  }
+
+  // Other contact validation (optional)
+  if (otherContactVal) {
+    const { msg: otherMsg, status: otherStatus } = validatePhoneNumberInputs(otherContactVal);
+    if (!otherStatus) {
+      displayErrorMsg(otherContactErrorEl, otherMsg, isSuccess, false);
+      error.push('other-contact error');
+    } else {
+      displayErrorMsg(otherContactErrorEl, '', isSuccess, true);
+      isSuccess = true;
+    }
+  } else {
+    // optional field, clear error
+    displayErrorMsg(otherContactErrorEl, '', isSuccess, true);
+    isSuccess = true;
+  }
+
+  // Faculty validation
+  if (!facultyVal) {
+    displayErrorMsg(facultyErrorEl, 'please select a faculty', isSuccess, false);
+    error.push('faculty error');
+  } else {
+    displayErrorMsg(facultyErrorEl, '', isSuccess, true);
+    isSuccess = true;
+  }
+
+  // Department validation
+  if (!departmentVal) {
+    displayErrorMsg(departmentErrorEl, 'department must not be empty', isSuccess, false);
+    error.push('department error');
+  } else if (departmentVal.length < 3) {
+    displayErrorMsg(departmentErrorEl, 'department must be at least 3 characters', isSuccess, false);
+    error.push('department error');
+  } else {
+    displayErrorMsg(departmentErrorEl, '', isSuccess, true);
+    isSuccess = true;
+  }
+
+  console.log(error);
+
+  return error.length === 0 ? true : false;
+};
+
+
 function displayErrorMsg(element, msg, isSuccess, result) {
   element.innerHTML = msg;
   isSuccess = result;
@@ -153,7 +224,7 @@ const validatePhoneNumberInputs = (inputELValue) => {
 
   // Check for non-numeric characters
   if (!/^\d*$/.test(inputELValue)) {
-    msg = 'alphabets not allowed';
+    msg = 'alphabets, spacing or + are not allowed';
     status = false;
   }
   // Check length
@@ -164,7 +235,6 @@ const validatePhoneNumberInputs = (inputELValue) => {
 
   return { msg, status };
 };
-
 
 const validateEmailInput = (inputELValue) => {
   let msg = '';

@@ -118,17 +118,31 @@
             id="whatsapp-contact"
             name="whatsapp_contact"
             required
+            maxlength="11"
+            data-error-id="whatsapp-error"
           />
+              <span 
+              id="whatsapp-error"
+              class="error-message" 
+              data-error-id="whatsapp-error"></span>
 
-          <label for="other-contact">Other Contact of Nominee:</label>
+          <label for="other-contact">
+            Other Contact of Nominee: <span style="color: red;">*optional</span>
+          </label>
           <input 
             type="tel" 
             id="other-contact" 
-            name="other_contact" 
+            name="other_contact"
+            maxlength="11" 
+            data-error-id="other-contact-error"
             />
+              <span 
+              id="other-contact-error"
+              class="error-message" 
+              data-error-id="other-contact-error"></span>
 
           <label for="faculty">Faculty of Nominee:</label>
-          <select id="faculty" name="faculty" required>
+          <select data-error-id="faculty-error" id="faculty" name="faculty" required>
             <option value="">Select Faculty</option>
             <option value="Faculty of Arts">Faculty of Arts</option>
             <option value="Faculty of Agriculture">
@@ -164,9 +178,18 @@
             </option>
             <option value="Other">Other</option>
           </select>
+               <span 
+              id="faculty-error"
+              class="error-message" 
+              data-error-id="faculty-error"></span>
+          
 
           <label for="department">Department of Nominee:</label>
-          <input type="text" id="department" name="department" required />
+          <input type="text" id="department" data-error-id="department-error"  name="department" required />
+            <span 
+              id="department-error"
+              class="error-message" 
+              data-error-id="department-error"></span>
           </div>
            
           <!-- nomination from step 3 -->
