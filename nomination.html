@@ -195,10 +195,23 @@
           <!-- nomination from step 3 -->
           <div class="step nomination-form-step-3">
           <label for="level">Level of Nominee:</label>
-          <input type="text" id="level" name="level" required />
+          <input 
+            type="number" 
+            step="100" 
+            min="100" 
+            max="600" 
+            id="level" 
+            name="level" 
+            data-error-id="level-error"
+            required 
+            />
+             <span 
+              id="level-error"
+              class="error-message" 
+              data-error-id="level-error"></span>
 
           <label for="category">Category:</label>
-          <select id="category" name="category" required>
+          <select id="category" name="category"  data-error-id="category-error" required>
             <option value="">Select Category</option>
             <option value="Business and Entrepreneurship Excellence">
              Business & Entrepreneurship Excellence-
@@ -229,6 +242,10 @@
               Personal development and Self improvement
             </option>
           </select>
+            <span 
+              id="category-error"
+              class="error-message" 
+              data-error-id="category-error"></span>
 
           <label for="social-media-handle"
             >Social Media Handle of Nominee:</label
@@ -238,11 +255,20 @@
             id="social-media-handle"
             name="social_media_handle"
             placeholder="@yourhandle"
+            data-error-id="social-media-handle-error"
             required
           />
+           <span 
+              id="social-media-handle-error"
+              class="error-message" 
+              data-error-id="social-media-handle-error"></span>
 
           <label for="reason">Reason for Nomination:</label>
-          <textarea id="reason" name="reason" rows="4" required></textarea>
+          <textarea id="reason" name="reason" rows="4" data-error-id="reason-error" required></textarea>
+           <span 
+              id="reason-error"
+              class="error-message" 
+              data-error-id="reason-error"></span>
 
           <!-- <input
             type="hidden"

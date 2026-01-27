@@ -40,6 +40,9 @@ function moveToNextStep() {
     count = 0;
   } else if (count >= totalNumberOfSteps) {
     count = totalNumberOfSteps;
+          let success = validateStep3Form();
+      console.log(`is step 3 success`, success)
+      success ? console.log('form suceessful') : console.log('form failed')
   } else {
     if (count === 0) {
       let success = validateStep1Form();
@@ -47,8 +50,10 @@ function moveToNextStep() {
     }else if(count === 1){
        let success = validateStep2Form();
        success ? count++ : (count = 1);
+       console.log(count)
     }
   }
+  console.log('ran')
   showCurrentStep(nominationFormStepsList, count);
 }
 
@@ -206,6 +211,58 @@ let validateStep2Form = () => {
 
   return error.length === 0 ? true : false;
 };
+
+
+let validateStep3Form = () => {
+  let isSuccess = false;
+  const error = [];
+
+  const levelOfNomineeVal = document.getElementById('level').value.trim();
+  const categoryOfNormineeVal = document.getElementById('category').value.trim();
+  const socialMediaOfNomineeVal = document.getElementById('social-media-handle').value.trim();
+  const reasonOfNominatingNomineeVal = document.getElementById('reason').value.trim();
+
+  // El = element
+  const levelOfNomineeValErrorEl = document.getElementById('level-error');
+  const categoryOfNormineeValErrorEl = document.getElementById('category-error');
+  const socialMediaOfNomineeValErrorEl = document.getElementById('social-media-handle-error');
+  const reasonOfNominatingNomineeValErrorEl = document.getElementById('reason-error');
+
+  // level of nominee validation
+  if(levelOfNomineeVal === '100' || levelOfNomineeVal ===  '200' || levelOfNomineeVal ===  '300' || levelOfNomineeVal ===  '400' ||   levelOfNomineeVal === '500' || levelOfNomineeVal ===  '600'){
+    displayErrorMsg(levelOfNomineeValErrorEl, '', isSuccess, true);
+  }else{
+     displayErrorMsg(levelOfNomineeValErrorEl, 'levels are between 100 - 500', isSuccess, false);
+    error.push('level of nominee value error');
+  }
+
+  // category of norminee value validation
+  if(categoryOfNormineeVal === ''){
+     displayErrorMsg(categoryOfNormineeValErrorEl, 'please select a category', isSuccess, false);
+     error.push('category of nominee value error');
+  }else{
+     displayErrorMsg(categoryOfNormineeValErrorEl, '', isSuccess, true);
+  }
+
+  //social media of nominee value nomination
+  if(socialMediaOfNomineeVal === ''){
+     displayErrorMsg(socialMediaOfNomineeValErrorEl, 'field can not be empty', isSuccess, false);
+     error.push('social media of nominee value error');
+  }else{
+     displayErrorMsg(socialMediaOfNomineeValErrorEl, '', isSuccess, true);
+  }
+
+    // category of norminee value validation
+  if(reasonOfNominatingNomineeVal === ''){
+     displayErrorMsg(reasonOfNominatingNomineeValErrorEl, 'field can not be empty', isSuccess, false);
+     error.push('category of nominee value error');
+  }else{
+     displayErrorMsg(reasonOfNominatingNomineeValErrorEl, '', isSuccess, true);
+  }
+
+  return error.length === 0 ? true : false ;
+
+}
 
 
 function displayErrorMsg(element, msg, isSuccess, result) {
