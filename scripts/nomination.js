@@ -20,6 +20,8 @@ const backBtnEl = document.getElementById("back-btn");
 
 let count = 0; //keeps track of current step, I display nomination step based on this
 
+
+
 // put the steps html in an array for easy accessibility and manipulation etc
 //why?:  steps to nominate is a list that's why they are in an array
 const nominationFormStepsList = [
@@ -28,21 +30,37 @@ const nominationFormStepsList = [
   nominationFormStep3HTML,
 ];
 
-const nominationFormStepsListErrors = {
-  step1: true,
-  step2: true,
-};
+const stepValuesStep1 = {
+  step1:{},
+  step2:{},
+  step3:{},
+}
 
 let totalNumberOfSteps = nominationFormStepsList.length - 1; //0, 1, 2 so it always return something in the array
 
-function moveToNextStep() {
+
+function showHideFormNavButtons () {
+  console.log(count)
+ count === 0 ? 
+ backBtnEl.style.opacity = '0' 
+ :
+  backBtnEl.style.opacity = '1' ; // initially hide back btn
+ count ===  totalNumberOfSteps ?  nextBtnEl.innerHTML = 'Submit' : nextBtnEl.innerHTML = 'Next';
+}
+
+showHideFormNavButtons();
+
+async function moveToNextStep() {
+
   if (count < 0) {
     count = 0;
   } else if (count >= totalNumberOfSteps) {
+
     count = totalNumberOfSteps;
           let success = validateStep3Form();
-      console.log(`is step 3 success`, success)
-      success ? console.log('form suceessful') : console.log('form failed')
+            if (success) {
+                const result = await submitNominationForm();
+              }
   } else {
     if (count === 0) {
       let success = validateStep1Form();
@@ -50,10 +68,9 @@ function moveToNextStep() {
     }else if(count === 1){
        let success = validateStep2Form();
        success ? count++ : (count = 1);
-       console.log(count)
     }
   }
-  console.log('ran')
+  showHideFormNavButtons()
   showCurrentStep(nominationFormStepsList, count);
 }
 
@@ -65,10 +82,15 @@ function moveToPrevStep() {
   } else {
     count--;
   }
+  showHideFormNavButtons()
   showCurrentStep(nominationFormStepsList, count);
 }
 
 nextBtnEl.addEventListener("click", moveToNextStep);
+
+
+
+
 backBtnEl.addEventListener("click", moveToPrevStep);
 
 let validateStep1Form = () => {
@@ -121,11 +143,9 @@ let validateStep1Form = () => {
 
       if(!nomineeEmailStatus){
         displayErrorMsg( emailOfNomineeValerrorEl, nomineeEmailMsg, isSuccess, nomineeEmailStatus);
-        console.log(nomineeEmailStatus)
         error.push('nominee error')
       }else{
           displayErrorMsg(emailOfNomineeValerrorEl, nomineeEmailMsg, isSuccess,  nomineeEmailStatus);
-           console.log(nomineeEmailStatus)
       }
 
   // nominator email validation
@@ -139,7 +159,14 @@ let validateStep1Form = () => {
           displayErrorMsg(emailOfNominatorValerrorEl, nominatorEmailMsg, isSuccess,  nominatorEmailStatus);
       }
 
-     console.log(error)
+    if (error.length === 0) {
+  stepValuesStep1.step1 = {
+    nomineeName: nameOfNomineeVal,
+    nomineeEmail: emailOfNomineeVal,
+    nominatorEmail: emailOfNominatorVal,
+    gender: genderOfNomineeVal,
+  };
+}
 
   return  error.length === 0 ? true: false;
 };
@@ -207,7 +234,14 @@ let validateStep2Form = () => {
     isSuccess = true;
   }
 
-  console.log(error);
+  if (error.length === 0) {
+  stepValuesStep1.step2 = {
+    whatsappContact: whatsAppNoVal,
+    otherContact: otherContactVal || null,
+    faculty: facultyVal,
+    department: departmentVal,
+  };
+}
 
   return error.length === 0 ? true : false;
 };
@@ -260,9 +294,64 @@ let validateStep3Form = () => {
      displayErrorMsg(reasonOfNominatingNomineeValErrorEl, '', isSuccess, true);
   }
 
+  if (error.length === 0) {
+  stepValuesStep1.step3 = {
+    level: levelOfNomineeVal,
+    category: categoryOfNormineeVal,
+    socialMediaHandle: socialMediaOfNomineeVal,
+    reason: reasonOfNominatingNomineeVal,
+  };
+}
+
   return error.length === 0 ? true : false ;
 
 }
+
+const buildFinalPayload = () => {
+  return {
+    ...stepValuesStep1.step1,
+    ...stepValuesStep1.step2,
+    ...stepValuesStep1.step3,
+  };
+};
+
+function setLoadingState(isLoading) {
+  let submitLoading = isLoading;
+
+  nextBtnEl.disabled = isLoading;
+  backBtnEl.disabled = isLoading;
+
+  nextBtnEl.textContent = isLoading ? "Submitting..." : "Next";
+}
+
+
+async function submitNominationForm() {
+  const payload = buildFinalPayload();
+  setLoadingState(true);
+
+  try {
+    const response = await fetch("YOUR_WEB_APP_URL_HERE", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+    if (result.success) {
+      console.log("Nomination submitted successfully!");
+      return true;
+    } else {
+      console.error("Submission error:", result.error);
+      return false;
+    }
+  } catch (err) {
+    console.error("Network or script error:", err);
+    return false;
+  } finally {
+    setLoadingState(false);
+  }
+}
+
 
 
 function displayErrorMsg(element, msg, isSuccess, result) {
@@ -306,7 +395,6 @@ const validateEmailInput = (inputELValue) => {
   }else{
    msg = '', status =  true
   }
-  console.log('nominee', status)
   return { msg, status };
 };
 
