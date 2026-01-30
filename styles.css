@@ -47,6 +47,23 @@ body::before {
   animation: backgroundShift 20s infinite alternate ease-in-out;
 }
 
+button{
+  cursor: pointer;
+}
+
+/*
+ makes imae take up the entire size of the container
+ without strectching or deforming.
+
+ --just give you img container a fluid or static size and image will resize to its shape 
+  */
+img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 @keyframes backgroundShift {
   0% {
     background-position: 0% 0%;
@@ -70,6 +87,7 @@ h6 {
 
 h1 {
   font-size: clamp(1.5rem, 5vw, 3rem);
+  line-height: 1.1;
 }
 
 h2 {
@@ -92,6 +110,14 @@ p {
   margin-bottom: 1rem;
   font-size: clamp(0.9rem, 2vw, 1.1rem);
 }
+/* utilities */
+.container{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+
 /* Existing CSS styles above this */
 
 /* Styles for the Creative Site-Wide Preloader */
@@ -152,34 +178,40 @@ p {
 header {
   background-color: var(--text-light);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 0.5rem;
-  position: sticky;
-  top: 0;
+  position: fixed;
+  width: 100%;
+  top: .25em;
   z-index: 100;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  border-radius: .5rem;
+  place-self: center;
+  padding-inline: .5em;
 }
 
-/* .logo img {
-  height: clamp(60px, 12vw, 100px);
-  width: auto;
-} */
+header .contact-us-btn{
+  padding: 1em 2em;
+  background-color: var(--accent-light);
+  color: var(--text-light);
+  font-weight: 700;
+  border: none;
+  border-radius: inherit;
+}
+
+
 
 /* Default: Mobile-first */
 .logo img {
-  height: 90px !important; /* VERY BIG on mobile */
-  width: auto !important;
-  max-width: none !important;
-  display: block !important;
-  object-fit: contain !important;
-  margin-left: 0 !important;
-  /* padding: 0 !important; */
-  padding-top: 10px;
+  width: 200px;
+  height: 80px;
 }
 
 nav {
-  margin: 10px;
+   flex: 1;
+   display: flex;
+   justify-content: center;
 }
 
 nav ul {
@@ -187,17 +219,17 @@ nav ul {
   list-style: none;
 }
 
-nav ul li {
-  margin-left: clamp(1.5rem, 2vw, 1.5rem);
-}
+
 
 nav ul li a {
   color: var(--text-dark);
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
   transition: var(--transition);
   font-size: clamp(0.8rem, 2vw, 1rem);
+  padding: .8em 1em;
   position: relative;
+  display: block; /*take up all space in the list container*/
 }
 
 nav ul li a::after {
@@ -224,23 +256,41 @@ nav ul li a:hover::after {
   font-size: 1.5rem;
   cursor: pointer;
   color: var(--jci-blue);
+  background-color: transparent;
+  border: none;
 }
-.hero {
+.hero{
   padding: var(--section-padding);
-  text-align: center;
+  padding-top: 4em;
+  text-align: start;
   background: linear-gradient(
     120deg,
     rgba(0, 61, 165, 0.05),
     rgba(255, 194, 14, 0.05)
   );
-  min-height: 60vh;
+  min-height: 100svh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: end;
   position: relative;
   overflow: hidden;
+  padding-bottom: 0;
 }
+
+.hero >div{
+    display: flex;
+}
+
+.hero >div>*{
+  flex: 1;
+}
+
+.content-container{
+    padding: var(--section-padding);
+
+}
+
+
 
 .hero::before {
   content: "";
@@ -304,14 +354,14 @@ nav ul li a:hover::after {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: start;
   animation: fadeInUp 1s 0.6s ease both;
 }
 
 .btn,
 .btn-secondary {
   display: inline-block;
-  padding: clamp(0.5rem, 2vw, 1rem) clamp(1rem, 4vw, 2rem);
+  padding: clamp(0.5rem, 2vw, .6rem) clamp(1rem, 4vw, 2rem);
   text-decoration: none;
   border-radius: 4px;
   font-weight: 600;
@@ -342,6 +392,55 @@ nav ul li a:hover::after {
   background-color: rgba(255, 194, 14, 0.8);
   transform: translateY(-3px);
   box-shadow: 0 5px 15px rgba(255, 194, 14, 0.3);
+}
+
+
+
+.slider-container{
+  overflow-x: scroll;
+  scrollbar-width: none;
+  align-items: end;
+  display: flex;
+
+    -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+}
+
+.slider-container .slider{
+  display: flex;
+  gap: .5em;
+  
+  animation: scroll 20s linear infinite;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-80%);
+  }
+}
+
+.slider-container figure{
+  width: 100%;
+  max-width: 250px;
+  height: 450px;
+  border-radius: .5rem;
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
 /* Impact Section */
@@ -573,6 +672,13 @@ footer > p {
   font-size: 0.9rem;
 }
 
+.desktop-contact-btn{
+    display: flex;
+  }
+  .mobile-contact-btn{
+    display: none;
+  }
+
 /* Media Queries for Responsiveness */
 /* For medium screens */
 
@@ -580,6 +686,23 @@ footer > p {
   :root {
     --section-padding: 2rem 1rem;
   }
+
+  .desktop-contact-btn{
+    display: none;
+  }
+  .mobile-contact-btn{
+    display: flex;
+  }
+
+  .hero{
+     min-height: auto;
+     text-align: center;
+  }
+
+    .hero >div{
+    display: flex;
+    flex-direction: column;
+}
 
   .menu-toggle {
     display: block;
@@ -600,7 +723,27 @@ footer > p {
     background-color: var(--text-light);
     transition: var(--transition);
     box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 .25em;
+    padding-bottom: 1em;
+    
   }
+
+    nav  .mobile-contact-btn {
+      width: 100%;
+      background-color: var(--accent-light);
+      border: none;
+      font-weight: 700;
+      color: var(--text-light);
+      text-decoration: none;
+      padding: 1em 0;
+      border-radius: .5rem;
+      text-align: center;
+      text-decoration: none;
+      display: flex;
+      justify-content: center;
+    }
 
   nav.active {
     left: 0;
@@ -653,6 +796,8 @@ footer > p {
   header {
     padding: 0.3rem;
   }
+
+
 
   .logo img {
     height: 35px;
