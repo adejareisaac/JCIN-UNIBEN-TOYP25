@@ -8,7 +8,10 @@
       content="Nominate a young achiever at the University of Benin for the TOYP UNIBEN Award. Celebrate outstanding individuals making a difference."
     />
     <title>Nominate - TOYP UNIBEN</title>
-    <link rel="stylesheet" href="nomination.css" />
+
+
+    <link rel="stylesheet" href="/styles/nomination.css" />
+
   </head>
   <body>
 
@@ -49,18 +52,47 @@
         <h2>Nomination Form</h2>
         <p>Please fill in the form below to nominate a candidate:</p>
 
-        <form action="https://formsubmit.co/toypuniben@gmail.com" method="POST">
-          <!-- <form id="nomination-form" method="POST"> -->
-          <label for="nominee-name">Nominee Name:</label>
-          <input type="text" id="nominee-name" name="nominee-name" required />
+        <!-- started working local host had to remove form action link to avoid uncessary submits -->
+        <!-- https://formsubmit.co/toypuniben@gmail.com -->
+        
+        
 
+
+   
+
+           <form action="" id="nomination-form" method="POST">
+          <!-- <form id="nomination-form" method="POST"> -->
+           
+            <!-- nomination form step 1 -->
+          <div class="step nomination-form-step-1">
+
+          <label for="nominee-name">Nominee Full Name:</label>
+          <input 
+            type="text" 
+            id="nominee-name" 
+            name="nominee-name" 
+            required
+            placeholder="Eg: John Doe"
+            data-error-id="nominee-name-error"
+             />
+             <span 
+              id="nominee-name-error"
+              class="error-message" 
+              data-error-id="nominee-name-error"></span>
+          
           <label for="nominee-email">Email of Nominee:</label>
           <input
             type="email"
             id="nominee-email"
             name="nominee_email"
+            placeholder="Eg: johndoe@gmail.com"
             required
+            data-error-id="nominee-email-error"
           />
+          <span 
+           id="nominee-email-error"
+           class="error-message" 
+           data-error-id="nominee-email-error"></span>
 
           <label for="nominator-email">Your Email:</label>
           <input
@@ -69,28 +101,60 @@
             name="nominator_email"
             placeholder="example@email.com"
             required
+            data-error-id="nominator-email-error"
           />
+          <span 
+           id="nominator-email-error"
+           class="error-message" 
+           data-error-id="nominator-email-error"></span>
 
           <label for="gender">Gender of Nominee:</label>
-          <select id="gender" name="gender" required>
+          <select id="gender" name="gender" data-error-id="nominee-gender-error" required>
             <option value="">Select Gender</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
           </select>
+          <span 
+            class="error-message"
+            id="gender-error"
+            data-error-id="nominee-gender-error">
+          </span>
 
+          </div>
+           
+          <!-- nomination form step 2 -->
+          <div class="step nomination-form-step-2">
           <label for="whatsapp-contact">WhatsApp Contact of Nominee:</label>
           <input
-            type="text"
+            type="tel"
             id="whatsapp-contact"
             name="whatsapp_contact"
             required
+            maxlength="11"
+            data-error-id="whatsapp-error"
           />
+              <span 
+              id="whatsapp-error"
+              class="error-message" 
+              data-error-id="whatsapp-error"></span>
 
-          <label for="other-contact">Other Contact of Nominee:</label>
-          <input type="text" id="other-contact" name="other_contact" />
+          <label for="other-contact">
+            Other Contact of Nominee: <span style="color: red;">*optional</span>
+          </label>
+          <input 
+            type="tel" 
+            id="other-contact" 
+            name="other_contact"
+            maxlength="11" 
+            data-error-id="other-contact-error"
+            />
+              <span 
+              id="other-contact-error"
+              class="error-message" 
+              data-error-id="other-contact-error"></span>
 
           <label for="faculty">Faculty of Nominee:</label>
-          <select id="faculty" name="faculty" required>
+          <select data-error-id="faculty-error" id="faculty" name="faculty" required>
             <option value="">Select Faculty</option>
             <option value="Faculty of Arts">Faculty of Arts</option>
             <option value="Faculty of Agriculture">
@@ -126,15 +190,40 @@
             </option>
             <option value="Other">Other</option>
           </select>
+               <span 
+              id="faculty-error"
+              class="error-message" 
+              data-error-id="faculty-error"></span>
+          
 
           <label for="department">Department of Nominee:</label>
-          <input type="text" id="department" name="department" required />
-
+          <input type="text" id="department" data-error-id="department-error"  name="department" required />
+            <span 
+              id="department-error"
+              class="error-message" 
+              data-error-id="department-error"></span>
+          </div>
+           
+          <!-- nomination from step 3 -->
+          <div class="step nomination-form-step-3">
           <label for="level">Level of Nominee:</label>
-          <input type="text" id="level" name="level" required />
+          <input 
+            type="number" 
+            step="100" 
+            min="100" 
+            max="600" 
+            id="level" 
+            name="level" 
+            data-error-id="level-error"
+            required 
+            />
+             <span 
+              id="level-error"
+              class="error-message" 
+              data-error-id="level-error"></span>
 
           <label for="category">Category:</label>
-          <select id="category" name="category" required>
+          <select id="category" name="category"  data-error-id="category-error" required>
             <option value="">Select Category</option>
             <option value="Business and Entrepreneurship Excellence">
              Business & Entrepreneurship Excellence-
@@ -165,6 +254,10 @@
               Personal development and Self improvement
             </option>
           </select>
+            <span 
+              id="category-error"
+              class="error-message" 
+              data-error-id="category-error"></span>
 
           <label for="social-media-handle"
             >Social Media Handle of Nominee:</label
@@ -174,11 +267,20 @@
             id="social-media-handle"
             name="social_media_handle"
             placeholder="@yourhandle"
+            data-error-id="social-media-handle-error"
             required
           />
+           <span 
+              id="social-media-handle-error"
+              class="error-message" 
+              data-error-id="social-media-handle-error"></span>
 
           <label for="reason">Reason for Nomination:</label>
-          <textarea id="reason" name="reason" rows="4" required></textarea>
+          <textarea id="reason" name="reason" rows="4" data-error-id="reason-error" required></textarea>
+           <span 
+              id="reason-error"
+              class="error-message" 
+              data-error-id="reason-error"></span>
 
           <!-- <input
             type="hidden"
@@ -187,8 +289,21 @@
           />
           <input type="hidden" name="_captcha" value="false" /> -->
 
-          <button type="submit" id="submit-button">Submit Nomination</button>
-        </form>
+          </div>
+
+          <!-- nomination form navigation btn container-->
+          <div class="nomination-form-navigation-container">
+            <button type="button" id="back-btn">Back</button>
+            <button 
+             type="button" 
+             id="next-btn"
+             >
+             Next
+            </button>
+          </div>
+
+          </form>
+    
 
         <!-- <div
           id="confirmation-message"
@@ -382,5 +497,6 @@
     </footer>
 
     <script src="main.js"></script>
+    <script type="module" src="/scripts/nomination.js"></script>
   </body>
 </html>

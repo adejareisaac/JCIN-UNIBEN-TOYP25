@@ -9,6 +9,7 @@
   --accent-light: #1a52ba;
   --section-padding: 3rem 1rem;
   --transition: all 0.3s ease;
+  --danger: #ff0000;
 }
 
 * {
