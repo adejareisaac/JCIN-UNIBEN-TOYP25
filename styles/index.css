@@ -1,3 +1,6 @@
+@import url("/styles/styles.css");
+
+
 .hero{
   padding: var(--section-padding);
   padding-top: 4em;
