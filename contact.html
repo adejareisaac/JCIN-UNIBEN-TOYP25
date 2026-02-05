@@ -12,19 +12,33 @@
   </head>
   <body>
     <header>
-      <div class="logo">
+      <a href="/" class="logo">
         <img src="images/toyp.png" alt="TOYP UNIBEN Logo" />
-      </div>
-      <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+      </a>
+
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
       <nav>
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="nomination.html">Nominate</a></li>
-          <li><a href="vote.html">Vote</a></li>
+          <li class="dropdown">
+            <a href="">Past TOYP</a>
+            <ul class="dropdown-menu">
+              <li><a href="">2023 TOYP</a></li>
+              <li><a href="">2025 TOYP</a></li>
+            </ul>
+          </li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
+         <a href="nomination.html" class="mobile-contact-btn ">
+              Nominate
+            </a>
       </nav>
+
+      <a href="nomination.html" class="desktop-contact-btn btn">
+        Nominate
+      </a>
     </header>
 
     <section class="contact fade-in">
