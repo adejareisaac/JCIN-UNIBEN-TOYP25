@@ -41,3 +41,8 @@ window.addEventListener('load', function() {
     preloader.style.display = 'none';
   }
 });
+
+const today = new Date();
+const currentYear = today.getFullYear();
+
+document.querySelector('.year').innerHTML = currentYear;
