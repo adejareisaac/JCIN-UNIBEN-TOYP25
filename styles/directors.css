@@ -1,0 +1,158 @@
+main{
+  padding-top: 6em; /*so sontent should not go under header*/
+background: linear-gradient(to right, #9ac0f8 0%, #cedff8 55%, #f7f1e3 100%);
+/* This stretches the gradient so there is room to 'move' */
+  background-size: 400% 400%;
+  
+  /* Adjust '15s' to make it faster or slower */
+  animation: gradientFlow 15s ease infinite;
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+main h1, 
+main p{
+  text-align: center;
+}
+
+.card-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5em 0;
+  position: relative;
+  flex-direction: column;
+  gap: 1em;
+  position: relative;
+  min-height: 100svh;
+}
+
+.intro-text{
+  text-align: center;
+  max-width: 750px;
+  margin: 0 auto;
+}
+.directors-section-2025{
+  position: relative;
+ background-image: url('/images/jcin-uniben-logo-Photoroom.png');
+ background-repeat: no-repeat;
+ background-size: cover;
+ background-position: center;
+ background-attachment: fixed;
+ max-width: 2000px;/*overide global container max-width: 1200px, so the j in the bkg pic will not be cut off*/
+
+
+}
+
+.director-card-2025
+{
+ width: 100%;
+ max-width: 700px;
+ display: flex;
+ border-radius: .5rem;
+ overflow: hidden;
+ box-shadow: 2px 2px 8px rgba(68, 68, 68, 0.904);
+ background-color: var(--bg-light);
+ position: sticky;
+
+   transform: translateZ(0); /* moves element to GPU layer */
+  backface-visibility: hidden;
+  height: 400px;
+  z-index: 10;
+}
+
+.card-container .card-1{
+  top: 5.5em;
+}
+.card-container .card-2{
+ top: 6em;
+}
+
+.card-container .card-3{
+ top: 6.5em;
+}
+
+.card-container .card-4{
+ top: 7em;
+}
+
+.director-card-2025 figure{
+  width: 45%;
+  position: relative;
+}
+.director-card-2025 figcaption{
+  position: absolute;
+  background-color: var(--accent-light);
+  bottom: 2em;
+  padding: .25em 1.5em;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  color: var( --text-light);
+  letter-spacing: 2px;
+
+}
+
+.director-card-2025 .content{
+  flex: 1 ;
+  justify-content: space-between;
+  display:  flex;
+  flex-direction: column;
+  padding: .5em;
+  /* position: relative; */
+}
+
+
+.director-card-2025 .content .about-director{
+  font-size: .9rem;
+  text-align: start;
+}
+
+.director-card-2025 .content .name{
+  text-align: end;
+  font-weight: 700;
+  color: var( --jci-blue);
+  position: relative;
+}
+
+.director-card-2025 .content .name::after{
+  content: '';
+  position: absolute;
+  width: 20%;
+  height: 2px;
+  background-color: var(--jci-yellow);
+  bottom: -.5em;
+  right: 0;
+}
+
+.director-social-links-container{
+  display: flex;
+  gap: 1em;
+  justify-content: flex-end;
+  padding: .5em;
+  align-items: center;
+}
+
+.director-social-links-container svg{
+  width: 1.5em;
+  height: 1.5em;
+  /* fill: var(--jci-blue); */
+  cursor: pointer;
+  transition: transform .3s ease, fill .3s ease;
+}
+
+@media(max-width:700px){
+
+
+
+}

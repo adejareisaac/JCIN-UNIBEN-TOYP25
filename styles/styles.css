@@ -433,6 +433,12 @@ footer > p {
   box-shadow: 0 5px 15px rgba(255, 194, 14, 0.3);
 }
 
+  /* .footer-logo{
+    border: 2px solid red;
+    height: 200px;
+    width: 200px;
+  } */
+
 
 
 /* Media Queries for Responsiveness */
