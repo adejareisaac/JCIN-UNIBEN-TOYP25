@@ -1,10 +1,10 @@
+html{
+  scroll-behavior: scroll;
+}
+
 main{
-  padding-top: 6em; /*so sontent should not go under header*/
-background: linear-gradient(to right, #9ac0f8 0%, #cedff8 55%, #f7f1e3 100%);
-/* This stretches the gradient so there is room to 'move' */
+  background: linear-gradient(to right, #9ac0f8 0%, #cedff8 55%, #f7f1e3 100%);
   background-size: 400% 400%;
-  
-  /* Adjust '15s' to make it faster or slower */
   animation: gradientFlow 15s ease infinite;
 }
 
@@ -24,6 +24,45 @@ main h1,
 main p{
   text-align: center;
 }
+
+main h1{
+  animation: slideUpFadeIn 1s ease forwards;
+  margin-bottom: 0;
+}
+main .intro-text{
+  animation: slideUpFadeIn 1.5s ease forwards;
+}
+
+@keyframes slideUpFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.left-btn{
+  animation: popIn 1.6s ease forwards;
+}
+.right-btn{
+  animation: popIn 1.6s ease forwards;
+}
+
+@keyframes popIn{
+  0%{
+    opacity: 0;
+    transform: scale(.5);
+  }
+  100%{
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
 
 .card-container{
   display: flex;
@@ -50,8 +89,51 @@ main p{
  background-position: center;
  background-attachment: fixed;
  max-width: 2000px;/*overide global container max-width: 1200px, so the j in the bkg pic will not be cut off*/
+}
 
+.hero-section{
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 3em;
+  z-index: 1;
+}
+.hero-section .cta-btn-container{
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  flex-wrap: wrap;
+}
 
+.hero-section >*{
+  margin-bottom: 1.5em;
+}
+
+.hero-section .box{
+  width: 250px;
+  height: 250px;
+  background-color: var(--accent-light);
+  position: absolute;
+  border-radius: .5rem;
+  position: absolute;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.hero-section .top-right-box{
+  top: -5em;
+  right: -5em;
+  left: auto;
+  background-color: #fcdf8690;
+}
+
+.hero-section .bottom-left-box{
+  bottom: -8em;
+  left: -5em;
+  background-color: #638cd28f;
 }
 
 .director-card-2025
@@ -69,6 +151,10 @@ main p{
   backface-visibility: hidden;
   height: 400px;
   z-index: 10;
+}
+
+.directors-section-2025 h2{
+  text-align: center;
 }
 
 .card-container .card-1{
