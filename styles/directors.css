@@ -1,0 +1,244 @@
+html{
+  scroll-behavior: scroll;
+}
+
+main{
+  background: linear-gradient(to right, #9ac0f8 0%, #cedff8 55%, #f7f1e3 100%);
+  background-size: 400% 400%;
+  animation: gradientFlow 15s ease infinite;
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+main h1, 
+main p{
+  text-align: center;
+}
+
+main h1{
+  animation: slideUpFadeIn 1s ease forwards;
+  margin-bottom: 0;
+}
+main .intro-text{
+  animation: slideUpFadeIn 1.5s ease forwards;
+}
+
+@keyframes slideUpFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.left-btn{
+  animation: popIn 1.6s ease forwards;
+}
+.right-btn{
+  animation: popIn 1.6s ease forwards;
+}
+
+@keyframes popIn{
+  0%{
+    opacity: 0;
+    transform: scale(.5);
+  }
+  100%{
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+
+.card-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5em 0;
+  position: relative;
+  flex-direction: column;
+  gap: 1em;
+  position: relative;
+  min-height: 100svh;
+}
+
+.intro-text{
+  text-align: center;
+  max-width: 750px;
+  margin: 0 auto;
+}
+.directors-section-2025{
+  position: relative;
+ background-image: url('/images/jcin-uniben-logo-Photoroom.png');
+ background-repeat: no-repeat;
+ background-size: cover;
+ background-position: center;
+ background-attachment: fixed;
+ max-width: 2000px;/*overide global container max-width: 1200px, so the j in the bkg pic will not be cut off*/
+}
+
+.hero-section{
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 3em;
+  z-index: 1;
+}
+.hero-section .cta-btn-container{
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+
+.hero-section >*{
+  margin-bottom: 1.5em;
+}
+
+.hero-section .box{
+  width: 250px;
+  height: 250px;
+  background-color: var(--accent-light);
+  position: absolute;
+  border-radius: .5rem;
+  position: absolute;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.hero-section .top-right-box{
+  top: -5em;
+  right: -5em;
+  left: auto;
+  background-color: #fcdf8690;
+}
+
+.hero-section .bottom-left-box{
+  bottom: -8em;
+  left: -5em;
+  background-color: #638cd28f;
+}
+
+.director-card-2025
+{
+ width: 100%;
+ max-width: 700px;
+ display: flex;
+ border-radius: .5rem;
+ overflow: hidden;
+ box-shadow: 2px 2px 8px rgba(68, 68, 68, 0.904);
+ background-color: var(--bg-light);
+ position: sticky;
+
+   transform: translateZ(0); /* moves element to GPU layer */
+  backface-visibility: hidden;
+  height: 400px;
+  z-index: 10;
+}
+
+.directors-section-2025 h2{
+  text-align: center;
+}
+
+.card-container .card-1{
+  top: 5.5em;
+}
+.card-container .card-2{
+ top: 6em;
+}
+
+.card-container .card-3{
+ top: 6.5em;
+}
+
+.card-container .card-4{
+ top: 7em;
+}
+
+.director-card-2025 figure{
+  width: 45%;
+  position: relative;
+}
+.director-card-2025 figcaption{
+  position: absolute;
+  background-color: var(--accent-light);
+  bottom: 2em;
+  padding: .25em 1.5em;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  color: var( --text-light);
+  letter-spacing: 2px;
+
+}
+
+.director-card-2025 .content{
+  flex: 1 ;
+  justify-content: space-between;
+  display:  flex;
+  flex-direction: column;
+  padding: .5em;
+  /* position: relative; */
+}
+
+
+.director-card-2025 .content .about-director{
+  font-size: .9rem;
+  text-align: start;
+}
+
+.director-card-2025 .content .name{
+  text-align: end;
+  font-weight: 700;
+  color: var( --jci-blue);
+  position: relative;
+}
+
+.director-card-2025 .content .name::after{
+  content: '';
+  position: absolute;
+  width: 20%;
+  height: 2px;
+  background-color: var(--jci-yellow);
+  bottom: -.5em;
+  right: 0;
+}
+
+.director-social-links-container{
+  display: flex;
+  gap: 1em;
+  justify-content: flex-end;
+  padding: .5em;
+  align-items: center;
+}
+
+.director-social-links-container svg{
+  width: 1.5em;
+  height: 1.5em;
+  /* fill: var(--jci-blue); */
+  cursor: pointer;
+  transition: transform .3s ease, fill .3s ease;
+}
+
+@media(max-width:700px){
+
+
+
+}
