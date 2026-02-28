@@ -18,7 +18,8 @@
     />
 
 
-    <link rel="stylesheet" href="/styles/nomination.css" />
+    <link rel="stylesheet" href="/styles/styles.css" />
+    <link rel="stylesheet" href="styles/nomination.css" />
 
   </head>
   <body>
@@ -35,7 +36,7 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li class="dropdown">
-            <a href="">TOYP Directors</a>
+            <a href="">Meet the Team</a>
             <ul class="dropdown-menu">
               <li><a href="">2023 TOYP</a></li>
               <li><a href="/directors.html">2025 TOYP</a></li>
@@ -237,36 +238,18 @@
               data-error-id="level-error"></span>
 
           <label for="category">Category:</label>
-          <select id="category" name="category"  data-error-id="category-error" required>
+          <select id="category" name="category" data-error-id="category-error" required>
             <option value="">Select Category</option>
-            <option value="Business and Entrepreneurship Excellence">
-             Business & Entrepreneurship Excellence-
-            </option>
-            <option value="Political & Governance Impact">
-              Leadership in Politics & Student Governance-
-            </option>
-            <option value="Academic and Intellectual Achievements">
-              Academic and Intellectual Achievement
-            </option>
-            <option value="Art & Creative Innovation">
-              Art, Culture & Creative Expression
-            </option>
-            <option value="Sports Achievement">Sports & Athletic Excellence</option>
-            <option value="Voluntary Leadership and Humanitarian services">
-              Volunteering & Humanitarian Service
-            </option>
-            <option value="Personal Development and Self improvement">
-              Health & Wellness Advocacy
-            </option>
-            <option value="Health & Medical Impact">
-             Digital Media & Influencer Impact
-            </option>
-            <option value="Social & Community Influence">
-              Tech & Innovation Leadership
-            </option>
-            <option value="Digital Media Presence">
-              Personal development and Self improvement
-            </option>
+            <option value="Business and Entrepreneurial Excellence">Business and Entrepreneurial Excellence</option>
+            <option value="Leadership in Student Governance">Leadership in Student Governance</option>
+            <option value="Academic and Intellectual Achievement">Academic and Intellectual Achievement</option>
+            <option value="Art, Culture and Creative Expression">Art, Culture and Creative Expression</option>
+            <option value="Sports and Athletic Excellence">Sports and Athletic Excellence</option>
+            <option value="Volunteering and Human Service">Volunteering and Human Service</option>
+            <option value="Health, Wellness and Advocacy">Health, Wellness and Advocacy</option>
+            <option value="Digital Media and Influencer Impact">Digital Media and Influencer Impact</option>
+            <option value="Tech and Innovative Leadership">Tech and Innovative Leadership</option>
+            <option value="Personal Development and Self Improvement">Personal Development and Self Improvement</option>
           </select>
             <span 
               id="category-error"
@@ -319,7 +302,7 @@
           </form>
     
 
-        <!-- <div
+        <div
           id="confirmation-message"
           style="
             display: none;
@@ -328,146 +311,11 @@
             margin-top: 20px;
           "
         >
-          <h3>Thank you for your nomination!</h3>
-          <p>
-            Your submission has been successfully received. The nominee will be
-            contacted soon.
-          </p> -->
+          <!-- messages written by JS -->
         </div>
       </div>
     </section>
-    <!-- <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const nominationForm = document.getElementById("nomination-form-main");
-        const submitButton = document.getElementById("submit-button");
-        const statusMessage = document.getElementById("status-message");
-        const nominatorEmailInput = document.getElementById("nominator-email");
-
-        // Define a unique key prefix for local storage specific to this form/purpose
-        const NOMINATION_LOCAL_STORAGE_PREFIX =
-          "toyp_uniben_nomination_status_";
-
-        // Function to encode email for localStorage key (basic, not for security)
-        function encodeEmailForLS(email) {
-          return btoa(encodeURIComponent(email.toLowerCase().trim()));
-        }
-
-        // Function to check if a user with this email has already submitted
-        function hasUserSubmitted(encodedEmailKey) {
-          const itemStr = localStorage.getItem(
-            NOMINATION_LOCAL_STORAGE_PREFIX + encodedEmailKey
-          );
-          if (!itemStr) return false;
-
-          try {
-            const item = JSON.parse(itemStr);
-            const now = new Date().getTime();
-            // Check if item exists and is not expired
-            if (
-              item.value === "submitted" &&
-              item.expiry &&
-              item.expiry > now
-            ) {
-              return true;
-            } else {
-              // Remove expired item
-              localStorage.removeItem(
-                NOMINATION_LOCAL_STORAGE_PREFIX + encodedEmailKey
-              );
-              return false;
-            }
-          } catch (e) {
-            // Handle potential parsing errors if item is not valid JSON
-            localStorage.removeItem(
-              NOMINATION_LOCAL_STORAGE_PREFIX + encodedEmailKey
-            );
-            return false;
-          }
-        }
-
-        // Function to mark a user as having submitted
-        function markUserAsSubmitted(encodedEmailKey) {
-          // Set for 24 hours (86400000 milliseconds) as an example expiry
-          const now = new Date();
-          const item = {
-            value: "submitted",
-            expiry: now.getTime() + 24 * 60 * 60 * 1000, // 24 hours from now
-          };
-          localStorage.setItem(
-            NOMINATION_LOCAL_STORAGE_PREFIX + encodedEmailKey,
-            JSON.stringify(item)
-          );
-        }
-
-        // Add an event listener to the form's submit event
-        nominationForm.addEventListener("submit", function (event) {
-          const nominatorEmail = nominatorEmailInput.value;
-          const encodedEmailKey = encodeEmailForLS(nominatorEmail);
-
-          // Check if this nominator has already submitted
-          if (hasUserSubmitted(encodedEmailKey)) {
-            event.preventDefault(); // STOP the form from submitting
-            statusMessage.style.display = "block";
-            statusMessage.style.color = "red"; // Set color for error
-            statusMessage.textContent =
-              "You have already submitted a nomination using this email address. Thank you!";
-            submitButton.disabled = false; // Re-enable button
-            return; // Exit the function
-          }
-
-          // If this is a new submission, proceed and mark user as submitted
-          markUserAsSubmitted(encodedEmailKey);
-
-          // Give immediate visual feedback before redirect
-          submitButton.disabled = true;
-          submitButton.textContent = "Submitting...";
-          statusMessage.style.display = "block";
-          statusMessage.style.color = "darkgreen"; // Set color for submitting status
-          statusMessage.textContent =
-            "Submitting your nomination... Please wait.";
-
-          // Since formsubmit.co is used with _next, the browser will redirect
-          // automatically after formsubmit.co processes the submission.
-        });
-
-        // Initial check on page load: If there's a stored email from a previous session
-        // and that email indicates a prior submission, hide the form.
-        const lastNominatorEmailRaw = localStorage.getItem(
-          "last_nominator_email_raw"
-        );
-        if (lastNominatorEmailRaw) {
-          const encodedKeyFromLastSession = encodeEmailForLS(
-            lastNominatorEmailRaw
-          );
-          if (hasUserSubmitted(encodedKeyFromLastSession)) {
-            statusMessage.style.display = "block";
-            statusMessage.style.color = "blue"; // Informational color
-            statusMessage.textContent =
-              "You have already submitted a nomination from this browser. Thank you!";
-            nominationForm.style.display = "none"; // Hide the form
-          }
-        }
-
-        // Listen for changes on the nominator email input field
-        // This allows re-showing the form if they clear the email or enter a new one
-        nominatorEmailInput.addEventListener("input", () => {
-          statusMessage.style.display = "none"; // Clear any status message
-          nominationForm.style.display = "block"; // Ensure form is visible again
-          submitButton.disabled = false;
-          submitButton.textContent = "Submit Nomination";
-        });
-
-        // Store the raw nominator email in localStorage on input blur, for persistent state
-        nominatorEmailInput.addEventListener("blur", () => {
-          const email = nominatorEmailInput.value.toLowerCase().trim();
-          if (email) {
-            localStorage.setItem("last_nominator_email_raw", email);
-          } else {
-            localStorage.removeItem("last_nominator_email_raw"); // Remove if field is empty
-          }
-        });
-      });
-    </script> -->
+    
     <footer>
       <div class="footer-content">
         <div class="social-media">
@@ -511,6 +359,21 @@
     </footer>
 
     <script src="main.js"></script>
-    <script type="module" src="/scripts/nomination.js"></script>
+    <!-- Ensure the frontend knows where the API lives during local testing. -->
+    <script>
+      // Change this to your deployed API url when you deploy the backend.
+      // Do NOT put any database SERVICE ROLE keys here. Only set the public anon key
+      // if you intentionally want the browser to write directly to Supabase.
+      // window.__API_BASE__ = window.__API_BASE__ || 'http://localhost:3000';
+      // Optional: enable direct client-to-Supabase writes by setting these values.
+      // You MUST set `window.__SUPABASE_ANON_KEY__` (the public anon key) in your
+      // local environment before enabling direct writes. Example (do this locally only):
+      // window.__SUPABASE_ANON_KEY__ = 'your-anon-key-here';
+      window.__SUPABASE_URL__ = window.__SUPABASE_URL__ || 'https://xbrndlhzaluksjhdbnur.supabase.co';
+      // Publishable (anon) key inserted below. This is safe for browser use
+      // but DO NOT expose service role keys in frontend code.
+      window.__SUPABASE_ANON_KEY__ = window.__SUPABASE_ANON_KEY__ || 'sb_publishable_0kunmksX8TRkAMaVZeEcRg_BVe2B9Yv';
+    </script>
+    <script type="module" src="scripts/nomination.js"></script>
   </body>
 </html>

@@ -59,7 +59,7 @@ async function moveToNextStep() {
     count = totalNumberOfSteps;
           let success = validateStep3Form();
             if (success) {
-                const result = await submitNominationForm();
+                await submitNominationForm();
               }
   } else {
     if (count === 0) {
@@ -308,48 +308,184 @@ let validateStep3Form = () => {
 }
 
 const buildFinalPayload = () => {
+  // map internal step values to database column names
+  const s1 = stepValuesStep1.step1 || {};
+  const s2 = stepValuesStep1.step2 || {};
+  const s3 = stepValuesStep1.step3 || {};
+
   return {
-    ...stepValuesStep1.step1,
-    ...stepValuesStep1.step2,
-    ...stepValuesStep1.step3,
+    nominee_name: s1.nomineeName || null,
+    nominee_email: s1.nomineeEmail || null,
+    nominator_email: s1.nominatorEmail || null,
+    gender: s1.gender || null,
+    whatsapp_contact: s2.whatsappContact || null,
+    other_contact: s2.otherContact || null,
+    faculty: s2.faculty || null,
+    department: s2.department || null,
+    level: s3.level ? parseInt(s3.level, 10) : null,
+    category: s3.category || null,
+    social_media_handle: s3.socialMediaHandle || null,
+    reason: s3.reason || null,
   };
 };
 
-function setLoadingState(isLoading) {
-  let submitLoading = isLoading;
+// API base fallback (can be set on the page as window.__API_BASE__)
+const API_BASE = window.__API_BASE__ || '';
 
+// Load categories into the form select from Supabase (anon) or backend API
+async function loadCategories() {
+  const select = document.getElementById('category');
+  if (!select) return;
+  select.innerHTML = '<option value="">Loading categories...</option>';
+
+  if (window.__SUPABASE_URL__ && window.__SUPABASE_ANON_KEY__) {
+    try {
+      const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm');
+      const supabase = createClient(window.__SUPABASE_URL__, window.__SUPABASE_ANON_KEY__);
+      const { data, error } = await supabase.from('categories').select('*').order('created_at', { ascending: true });
+      if (error) {
+        console.error('Failed to fetch categories via Supabase client', error);
+        select.innerHTML = '<option value="">Failed to load categories</option>';
+        return;
+      }
+      select.innerHTML = '<option value="">Select Category</option>' + (data.map(c => `<option value="${c.name}">${c.name}</option>`).join(''));
+      return;
+    } catch (e) {
+      console.error('Error loading categories', e);
+    }
+  }
+
+  // Fallback to backend API
+  try {
+    const r = await fetch(`${API_BASE}/api/categories`);
+    const j = await r.json();
+    if (j.success) {
+      const list = j.data || [];
+      select.innerHTML = '<option value="">Select Category</option>' + list.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+    } else {
+      select.innerHTML = '<option value="">No categories</option>';
+    }
+  } catch (err) {
+    console.error('Failed to load categories from API', err);
+    select.innerHTML = '<option value="">Failed to load categories</option>';
+  }
+}
+
+// initialize categories on module load so the select shows current values
+loadCategories().catch(err => console.warn('loadCategories failed', err));
+
+function setLoadingState(isLoading) {
   nextBtnEl.disabled = isLoading;
   backBtnEl.disabled = isLoading;
 
-  nextBtnEl.textContent = isLoading ? "Submitting..." : "Next";
+  nextBtnEl.textContent = isLoading
+    ? "Submitting..."
+    : (count === totalNumberOfSteps ? "Submit" : "Next");
 }
 
 
 async function submitNominationForm() {
+
+  // Load categories into the form select from Supabase (anon) or backend API
+  async function loadCategories() {
+    const select = document.getElementById('category');
+    if (!select) return;
+    select.innerHTML = '<option value="">Loading categories...</option>';
+
+    if (window.__SUPABASE_URL__ && window.__SUPABASE_ANON_KEY__) {
+      try {
+        const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm');
+        const supabase = createClient(window.__SUPABASE_URL__, window.__SUPABASE_ANON_KEY__);
+        const { data, error } = await supabase.from('categories').select('*').order('created_at', { ascending: true });
+        if (error) {
+          console.error('Failed to fetch categories via Supabase client', error);
+          select.innerHTML = '<option value="">Failed to load categories</option>';
+          return;
+        }
+        select.innerHTML = '<option value="">Select Category</option>' + (data.map(c => `<option value="${c.name}">${c.name}</option>`).join(''));
+        return;
+      } catch (e) {
+        console.error('Error loading categories', e);
+      }
+    }
+
+    // Fallback to backend API
+    try {
+      const r = await fetch(`${API_BASE}/api/categories`);
+      const j = await r.json();
+      if (j.success) {
+        const list = j.data || [];
+        select.innerHTML = '<option value="">Select Category</option>' + list.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+      } else {
+        select.innerHTML = '<option value="">No categories</option>';
+      }
+    } catch (err) {
+      console.error('Failed to load categories from API', err);
+      select.innerHTML = '<option value="">Failed to load categories</option>';
+    }
+  }
+
+  // initialize categories on load
+  loadCategories();
   const payload = buildFinalPayload();
   setLoadingState(true);
 
-  try {
-    const response = await fetch("YOUR_WEB_APP_URL_HERE", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
+  // Enforce direct client-to-Supabase submission only (no branch/fallback)
+  if (!window.__SUPABASE_URL__ || !window.__SUPABASE_ANON_KEY__) {
+    showErrorMessage('Supabase configuration missing. Set __SUPABASE_URL__ and __SUPABASE_ANON_KEY__ in the page.');
+    setLoadingState(false);
+    return false;
+  }
 
-    const result = await response.json();
-    if (result.success) {
-      console.log("Nomination submitted successfully!");
-      return true;
-    } else {
-      console.error("Submission error:", result.error);
+  try {
+    console.log('Submitting directly to Supabase:', window.__SUPABASE_URL__, payload);
+    const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm');
+    const supabase = createClient(window.__SUPABASE_URL__, window.__SUPABASE_ANON_KEY__);
+
+    const { data, error } = await supabase.from('nominations').insert([payload]);
+    if (error) {
+      console.error('Supabase insert error', error);
+      showErrorMessage('Submission failed: Supabase error. Check RLS and console.');
       return false;
     }
+
+    console.log('Nomination submitted via Supabase client', data);
+    showConfirmationMessage();
+    resetForm();
+    return true;
   } catch (err) {
-    console.error("Network or script error:", err);
+    console.error('Direct Supabase write failed', err);
+    showErrorMessage('Direct submission failed. See console for details.');
     return false;
   } finally {
     setLoadingState(false);
   }
+}
+
+function showConfirmationMessage() {
+  const msg = document.getElementById('confirmation-message');
+  if (msg) {
+    msg.style.display = 'block';
+    msg.style.color = '';
+    msg.textContent = 'Thank you! Your nomination has been received.';
+  }
+}
+
+function showErrorMessage(text) {
+  const msg = document.getElementById('confirmation-message');
+  if (msg) {
+    msg.style.display = 'block';
+    msg.style.color = 'red';
+    msg.textContent = text;
+  }
+}
+
+function resetForm() {
+  // clear inputs and step state
+  nominationForm.reset();
+  count = 0;
+  showCurrentStep(nominationFormStepsList, count);
+  showHideFormNavButtons();
 }
 
 

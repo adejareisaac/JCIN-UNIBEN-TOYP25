@@ -1,14 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2025 TOYP</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>2025 TOYP</title>
+        <link rel="stylesheet" href="styles/index.css" />
 </head>
 <body>
-    <div style="display: flex; flex-direction: column; margin: 0 auto; width: 95vw; height: 85vh; justify-content: center;">
-        <h1 style="font-size: 5vw; text-align: center;">This page is still under development</h1>
-        <p style="text-align: center;">Go back to <a href="index.html" style="color: black;">Home</a></p>
-    </div>
+        <header>
+            <a href="index.html" class="logo">
+                <img src="images/toyp.png" alt="TOYP UNIBEN Logo" />
+            </a>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li class="dropdown">
+                        <a href="#">Meet the Team</a>
+                        <ul class="dropdown-menu">
+                            <li>2025 TOYP</li>
+                            <li><a href="directors.html">2026 TOYP</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                 <a href="nomination.html" class="mobile-contact-btn ">Nominate</a>
+            </nav>
+            <a href="nomination.html" class="desktop-contact-btn btn">Nominate</a>
+        </header>
+
+        <div style="display: flex; flex-direction: column; margin: 0 auto; width: 95vw; height: 85vh; justify-content: center;">
+                <h1 style="font-size: 5vw; text-align: center;">This page is still under development</h1>
+                <p style="text-align: center;">Go back to <a href="index.html" style="color: black;">Home</a></p>
+        </div>
+
+        <script src="main.js"></script>
+        <script src="lightbox-plus-jquery.js"></script>
 </body>
 </html>

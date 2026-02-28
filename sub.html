@@ -4,38 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TOYP Nomination: Email Already Used!</title>
-    <style>
-      body {
-        font-family: sans-serif;
-        text-align: center;
-        padding: 50px;
-        background-color: #fff3cd;
-        color: #856404;
-      }
-      .container {
-        background-color: #ffeeba;
-        border: 1px solid #ffc107;
-        border-radius: 5px;
-        padding: 20px;
-        max-width: 600px;
-        margin: 0 auto;
-      }
-      h1 {
-        color: #ffc107;
-      }
-      p {
-        margin-bottom: 20px;
-      }
-      a {
-        color: #007bff;
-        text-decoration: none;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-    </style>
+    <link rel="stylesheet" href="styles/index.css" />
   </head>
   <body>
+    <!-- Shared header/nav -->
+    <header>
+      <a href="index.html" class="logo">
+        <img src="images/toyp.png" alt="TOYP UNIBEN Logo" />
+      </a>
+
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li class="dropdown">
+            <a href="#">Meet the Team</a>
+            <ul class="dropdown-menu">
+              <li>2025 TOYP</li>
+              <li><a href="directors.html">2026 TOYP</a></li>
+            </ul>
+          </li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+         <a href="nomination.html" class="mobile-contact-btn ">Nominate</a>
+      </nav>
+
+      <a href="nomination.html" class="desktop-contact-btn btn">Nominate</a>
+    </header>
+
     <div class="container">
       <h1>TOYP Nomination: Email Already Used!</h1>
       <p>
@@ -51,5 +49,8 @@
         <a href="index.html">Return to HomePage</a>
       </p>
     </div>
+
+    <script src="main.js"></script>
+    <script src="lightbox-plus-jquery.js"></script>
   </body>
 </html>
